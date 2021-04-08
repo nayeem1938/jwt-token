@@ -1,0 +1,76 @@
+server:
+  port: 8085
+  servlet:    context-path: /product-api
+    
+spring:  application:    name: prod-server
+    
+   
+#  datasource:#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@192.168.0.139:1521:ORCL
+#    username: NAYEEM
+#    password: nayeem
+    
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@192.168.0.246:1521:ORCL
+    username: PIMS
+    password: pims
+    
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://192.168.0.221:5432/pims_n
+#    username: pims_n
+#    password: pims_n#
+  jpa:    hibernate:      ddl-auto: update
+      naming:        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        
+    database-platform: org.hibernate.dialect.Oracle12cDialect
+#    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+    
+    generate-ddl: true
+    show-sql: true
+  data:    redis:      repositories:        enabled: false  servlet:    multipart:      max-file-size: 200MB
+      max-request-size: 200MB                
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.91:8761/eureka/    register-with-eureka: true
+    fetch-registry: true
+    
+  instance:    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 1
+    lease-renewal-interval-in-seconds: 2
+    
+    
+security:
+  oauth2:
+    client:
+      client-id: ati-ms
+      client-secret: ati-pass
+    resource:
+      token-info-uri: http://192.168.0.91:9191/auth-api/oauth/check_token
+    
+logging:
+#  file: F:/project/drug-product-microservice-resourse-server/drug-product-microservice-resourse-server/log/product.log
+  file: /home/docker/nayeem/test/log/product.log
+  level:
+    root: WARN
+    org.springframework.web: DEBUG
+    org.hibernate: ERROR
+    org.springframework: INFO  
+    
+sequence:
+  query: "SELECT generics_id_seq.nextval from dual"
+  
+  
+## File Storage Properties
+file:
+ upload-dir: /home/docker/nayeem/test/uploads/product
+ upload-dir-thumb: /home/docker/nayeem/test/uploads/thumb
+# upload-dir: F:/project/drug-product-microservice-resourse-server/drug-product-microservice-resourse-server/uploads/product
+# upload-dir-thumb: F:/project/drug-product-microservice-resourse-server/drug-product-microservice-resourse-server/uploads/thumb
+    
+    
+    
+    
